@@ -18,6 +18,8 @@ public class Testing extends LinearOpMode {
     Servo Intake1;
     Servo Intake2;
 
+    double DriveSpeed = 0.4;
+
     static final double INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
     static final int    CYCLE_MS    =   50;     // period of each cycle
     static final double MAX_POS     =  0.25;     // Maximum rotational position
@@ -43,16 +45,24 @@ public class Testing extends LinearOpMode {
 
 
         while (opModeIsActive() && !isStopRequested()) {
-            Controls();
+            GP1Controls();
             Servo();
             ContinueServo();
         }
     }
-    public void Controls () {
-        LeftT.setPower(0.5 * (gamepad1.left_stick_y) - (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
-        LeftB.setPower(0.5 * (gamepad1.left_stick_y) + (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
-        RightT.setPower(0.5 * (-gamepad1.left_stick_y) - (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
-        RightB.setPower(0.5 * (-gamepad1.left_stick_y) + (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
+    public void GP1Controls () {
+        LeftT.setPower(DriveSpeed * (gamepad1.left_stick_y) - (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
+        LeftB.setPower(DriveSpeed * (gamepad1.left_stick_y) + (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
+        RightT.setPower(DriveSpeed * (-gamepad1.left_stick_y) - (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
+        RightB.setPower(DriveSpeed * (-gamepad1.left_stick_y) + (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
+
+        if (gamepad1.right_bumper) {
+            DriveSpeed = 1;
+        }
+        if (gamepad1.left_bumper) {
+            DriveSpeed = 0.4;
+        }
+
     }
     public void Servo () {
         if (rampUp) {
@@ -69,11 +79,11 @@ public class Testing extends LinearOpMode {
                 position = MIN_POS;
             }
         }
-        if (gamepad1.left_bumper) {
+        if (gamepad2.left_bumper) {
             Intake1.setPosition(position);
             Intake2.setPosition(position);
         }
-        if (gamepad1.right_bumper) {
+        if (gamepad2.right_bumper) {
             Intake2.setPosition(-position);
             Intake1.setPosition(-position);
         }
