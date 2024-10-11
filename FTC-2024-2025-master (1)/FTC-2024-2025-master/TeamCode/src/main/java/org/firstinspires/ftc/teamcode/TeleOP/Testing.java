@@ -59,12 +59,16 @@ public class Testing extends LinearOpMode {
     }
     public void GP1Controls () {
         LeftT.setPower(DriveSpeed * (gamepad1.left_stick_y) - (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
-        LeftB.setPower(DriveSpeed * (gamepad1.left_stick_y) - (gamepad1.left_stick_x) + (gamepad1.right_stick_x));
+        LeftB.setPower(DriveSpeed * (-gamepad1.left_stick_y) - (gamepad1.left_stick_x) + (gamepad1.right_stick_x));
         RightT.setPower(DriveSpeed * (-gamepad1.left_stick_y) - (gamepad1.left_stick_x) - (gamepad1.right_stick_x));
-        RightB.setPower(DriveSpeed * (-gamepad1.left_stick_y) - (gamepad1.left_stick_x) + (gamepad1.right_stick_x));
+        RightB.setPower(DriveSpeed * (gamepad1.left_stick_y) - (gamepad1.left_stick_x) + (gamepad1.right_stick_x));
 
-        //DriveSpeed = (1 * gamepad1.right_trigger) + (0.4 * gamepad1.left_trigger);
-
+        if (gamepad1.right_bumper) {
+            DriveSpeed = 1;
+        }
+        else if (gamepad1.left_bumper) {
+            DriveSpeed = 0.4;
+        }
     }
 
     //set to Servo Port 0 and 1
