@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.TeleOP;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "ServoTest", group = "Testing")
-
+@Disabled
 public class servo12856 extends LinearOpMode {
 
     //Servo Intake1;

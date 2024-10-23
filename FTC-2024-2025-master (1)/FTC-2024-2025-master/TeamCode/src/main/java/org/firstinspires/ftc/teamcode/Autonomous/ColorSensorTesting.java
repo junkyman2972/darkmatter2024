@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 /*
  *
@@ -54,14 +55,17 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 // testing out true and false sensing different colors
 @TeleOp(name = "Sensor: MR Color", group = "Sensor")
-@Disabled
 public class ColorSensorTesting extends LinearOpMode {
 
   ColorSensor colorSensor;    // Hardware Device Object
 
+  DcMotorEx motor;
+
 
   @Override
   public void runOpMode() {
+
+    motor = hardwareMap.get(DcMotorEx.class, "motor");
 
     // hsvValues is an array that will hold the hue, saturation, and value information.
     float hsvValues[] = {0F,0F,0F};
@@ -82,7 +86,7 @@ public class ColorSensorTesting extends LinearOpMode {
     boolean bLedOn = true;
 
     // get a reference to our ColorSensor object.
-    colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
+    colorSensor = hardwareMap.get(ColorSensor.class, "ColorSensor");
 
     // Set the LED in the beginning
     colorSensor.enableLed(bLedOn);
@@ -105,20 +109,22 @@ public class ColorSensorTesting extends LinearOpMode {
         colorSensor.enableLed(bLedOn);
       }
 
-      bLedOn = true;
-
-      if (bLedOn = true) {
-        colorSensor.red();
-      }
-      if (bLedOn = false) {
-        colorSensor.blue();
-      }
 
       // update previous state variable.
       bPrevState = bCurrState;
 
       // convert the RGB values to HSV values.
       Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
+
+      if (colorSensor.blue() > colorSensor.red() && colorSensor.red() > 150) {
+        motor.setPower(0.5);
+      }
+      else if (colorSensor.red() > colorSensor.blue() && colorSensor.blue() > 150) {
+        motor.setPower(-0.5);
+      }
+      else if (colorSensor.alpha() >= colorSensor.blue() && colorSensor.alpha() > colorSensor.red()) {
+        motor.setPower(0);
+      }
 
       // send the info back to driver station using telemetry function.
       telemetry.addData("LED", bLedOn ? "On" : "Off");

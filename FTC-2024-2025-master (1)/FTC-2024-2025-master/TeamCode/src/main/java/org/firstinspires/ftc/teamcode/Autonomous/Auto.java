@@ -27,9 +27,9 @@ public class Auto extends LinearOpMode {
         waitForStart();
 
         LeftT.setPower(0.25);
-        LeftB.setPower(0.25);
+        LeftB.setPower(-0.25);
         RightT.setPower(-0.25);
-        RightB.setPower(-0.25);
+        RightB.setPower(0.25);
         sleep(2000);
         LeftT.setPower(0);
         LeftB.setPower(0);
