@@ -55,18 +55,20 @@ public class Testing extends LinearOpMode {
     static final double MAX_POS3     =  0.7;     // Maximum rotational position
     static final double MIN_POS3    =  0.0;
 
-    static final double MAX_POS4     =  0.5;     // Maximum rotational
+    int CYCLETIME = 1000;
 
-    static final double MAX_POS4part2     =  0.65;     // Maximum rotational
+    static final double MAX_POS4     =  0.65;     // Maximum rotational
 
-    static final double MAX_POS4part3     =  0.75;     // Maximum rotational
+    static final double MAX_POS4part2     =  0.35;     // Maximum rotational
 
-    static final double MIN_POS4part3    =  0.1;
+    static final double MAX_POS4part3     =  0.5;     // Maximum rotational
+
+    static final double MIN_POS4part3    =  0.0;
 
 
     static final double MIN_POS4    =  0.0;
 
-    static final double MIN_POS4part2    =  0.0;
+    static final double MIN_POS4part2    =  1.0;
     double  position2 = (MAX_POS2 - MIN_POS2) / 2; // Start at halfway position
 
     double  position3 = (MAX_POS3 - MIN_POS3) / 2; // Start at halfway position
@@ -234,6 +236,7 @@ public class Testing extends LinearOpMode {
             servo3.setPosition(position2);
         }
         if (gamepad2.dpad_down) {
+            sleep(500);
             servo3.setPosition(-position2);
         }
     }
@@ -253,13 +256,14 @@ public class Testing extends LinearOpMode {
             }
         }
         if (gamepad2.dpad_up) {
-            servo4.setPosition(position3);
+            sleep(200);
+            servo4.setPosition(-position3);
         }
         if (gamepad2.b) {
             servo4.setPosition(0.2);
         }
         if (gamepad2.dpad_down) {
-            servo4.setPosition(-position3);
+            servo4.setPosition(position3);
         }
     }
     public void FourServoBottom () {
@@ -309,13 +313,16 @@ public class Testing extends LinearOpMode {
             servo5.setPosition(-position4);
             servo6.setPosition(position4);
         }
+        else if (gamepad2.dpad_up) {
+            servo5.setPosition(-position4part2);
+            servo6.setPosition(position4part2);
+        }
         if (gamepad2.dpad_right) {
             servo5.setPosition(position4);
             servo6.setPosition(-position4);
         }
-        if (gamepad2.a) {
-            servo5.setPosition(0.75);
-            servo6.setPosition(-0.75);
-        }
+        telemetry.addData("Servo5 Position:", servo5.getPosition());
+        telemetry.addData("Servo6 Position:", servo6.getPosition());
+        telemetry.update();
     }
  }
