@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @Autonomous(name = "Auto", group = "Autonomous")
-@Disabled
 public class Auto extends LinearOpMode {
     DcMotorEx LeftT;
 
