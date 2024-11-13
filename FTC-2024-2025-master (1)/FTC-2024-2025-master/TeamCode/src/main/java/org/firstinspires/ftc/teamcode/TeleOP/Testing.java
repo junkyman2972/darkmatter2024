@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(group = "TeleOp", name = "Test")
@@ -40,8 +41,8 @@ public class Testing extends LinearOpMode {
 
     static final double INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
     static final int    CYCLE_MS    =   50;     // period of each cycle
-    static final double MAX_POS     =  0.2;     // Maximum rotational position
-    static final double MIN_POS     =  0.6;
+    static final double MAX_POS     =  0.55;     // Maximum rotational position
+    static final double MIN_POS     =  0.0;
     static final double MAX_POSpoint    =  0.3;
     static final double MIN_POSpoint     =  0.0;
 
@@ -97,6 +98,7 @@ public class Testing extends LinearOpMode {
         servo6 = hardwareMap.get(Servo.class, "servo6");
 
         Intake1.setDirection(Servo.Direction.REVERSE);
+        HorizontalIntake.setDirection(DcMotorSimple.Direction.REVERSE);
         servo6.setDirection(Servo.Direction.REVERSE);
 
 
@@ -154,18 +156,18 @@ public class Testing extends LinearOpMode {
             }
         }
 
-        Intake1.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y));
-        Intake2.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y));
+        //Intake1.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y));
+        //Intake2.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y));
 
 
-        /*if (gamepad2.left_bumper) {
+        if (gamepad2.left_bumper) {
             Intake1.setPosition(position);
             Intake2.setPosition(position);
         }
-        if (gamepad2.right_bumper) {
+        else if (gamepad2.right_bumper) {
             Intake2.setPosition(-position);
             Intake1.setPosition(-position);
-        }*/
+        }
     }
 
     //set to Servo Port 2
@@ -184,7 +186,9 @@ public class Testing extends LinearOpMode {
     public void HoriIntake () {
         HorizontalIntake.setPower(0.5 * -(gamepad2.left_stick_y) + (gamepad2.left_stick_y));
 
-        if (gamepad2.right_bumper) {
+
+        VerticalIntake.setPower(1 * (gamepad2.right_stick_y) - (gamepad2.right_stick_y));
+        /*if (gamepad2.right_bumper) {
             VerticalIntake.setPower(1);
         }
         else if (gamepad2.left_bumper) {
@@ -192,7 +196,7 @@ public class Testing extends LinearOpMode {
         }
         else {
             VerticalIntake.setPower(0);
-        }
+        }*/
     }
     public void FourServoIntakeCloser () {
         if (rampUp) {
@@ -261,7 +265,7 @@ public class Testing extends LinearOpMode {
             servo4.setPosition(-position3);
         }
         if (gamepad2.b) {
-            servo4.setPosition(0.2);
+            servo4.setPosition(0.35);
         }
         if (gamepad2.dpad_down) {
             servo4.setPosition(position3);
