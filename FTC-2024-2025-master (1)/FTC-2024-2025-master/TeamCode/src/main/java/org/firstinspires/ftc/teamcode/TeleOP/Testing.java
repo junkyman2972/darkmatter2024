@@ -59,16 +59,16 @@ public class Testing extends LinearOpMode {
 
     static final double MAX_POS4     =  0.65;     // Maximum rotational
 
-    static final double MAX_POS4part2     =  0.35;     // Maximum rotational
+    static final double MAX_POS4part2     =  0.0;     // Maximum rotational
 
-    static final double MAX_POS4part3     =  0.5;     // Maximum rotational
+    static final double MAX_POS4part3     =  0.8;     // Maximum rotational
 
     static final double MIN_POS4part3    =  0.0;
 
 
     static final double MIN_POS4    =  0.0;
 
-    static final double MIN_POS4part2    =  1.0;
+    static final double MIN_POS4part2    =  0.65;
     double  position2 = (MAX_POS2 - MIN_POS2) / 2; // Start at halfway position
 
     double  position3 = (MAX_POS3 - MIN_POS3) / 2; // Start at halfway position
@@ -97,6 +97,7 @@ public class Testing extends LinearOpMode {
         servo6 = hardwareMap.get(Servo.class, "servo6");
 
         Intake1.setDirection(Servo.Direction.REVERSE);
+        servo6.setDirection(Servo.Direction.REVERSE);
 
 
 
@@ -310,15 +311,15 @@ public class Testing extends LinearOpMode {
             }
         }
         if (gamepad2.dpad_left) {
-            servo5.setPosition(-position4);
+            servo5.setPosition(position4);
             servo6.setPosition(position4);
         }
-        else if (gamepad2.dpad_up) {
-            servo5.setPosition(-position4part2);
-            servo6.setPosition(position4part2);
+        else if (gamepad2.a) {
+            servo5.setPosition(position4part3);
+            servo6.setPosition(position4part3);
         }
         if (gamepad2.dpad_right) {
-            servo5.setPosition(position4);
+            servo5.setPosition(-position4);
             servo6.setPosition(-position4);
         }
         telemetry.addData("Servo5 Position:", servo5.getPosition());
