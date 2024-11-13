@@ -58,7 +58,7 @@ public class Testing extends LinearOpMode {
 
     int CYCLETIME = 1000;
 
-    static final double MAX_POS4     =  0.65;     // Maximum rotational
+    static final double MAX_POS4     =  0.3;     // Maximum rotational
 
     static final double MAX_POS4part2     =  0.0;     // Maximum rotational
 
@@ -213,6 +213,10 @@ public class Testing extends LinearOpMode {
                 positionpoint = MIN_POSpoint;
             }
         }
+        if (gamepad2.b) {
+            servo1.setPosition(-positionpoint);
+            servo2.setPosition(positionpoint);
+        }
         if (gamepad2.x) {
             servo1.setPosition(-positionpoint);
             servo2.setPosition(positionpoint);
@@ -240,7 +244,7 @@ public class Testing extends LinearOpMode {
         if (gamepad2.dpad_up) {
             servo3.setPosition(position2);
         }
-        if (gamepad2.dpad_down) {
+        if (gamepad2.b) {
             sleep(500);
             servo3.setPosition(-position2);
         }
