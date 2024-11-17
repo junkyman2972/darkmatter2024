@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,8 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "Auto", group = "Autonomous")
-public class Auto extends LinearOpMode {
+@Autonomous(name = "AutoLeft", group = "Autonomous")
+public class Auto2 extends LinearOpMode {
 
     static final double COUNTS_PER_MOTOR_REV = 537.7;    // eg: TETRIX Motor Encoder
 
@@ -102,7 +101,7 @@ public class Auto extends LinearOpMode {
 
 
         encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
-        encoderDrive(DRIVE_SPEED, 10, -10, 10, -10, 3);
+        encoderDrive(DRIVE_SPEED, -10, 10, -10, 10, 3);
         encoderDriveSlide(DRIVE_SPEED_2, -10, 0, 3);
         VerticalIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         sleep(500);
@@ -116,28 +115,12 @@ public class Auto extends LinearOpMode {
         servo1.setPosition(-0.3);
         servo2.setPosition(0.3);
         sleep(500);
-        servo5.setPosition(-0.2);
-        servo6.setPosition(-0.2);
+        servo5.setPosition(0.5);
+        servo6.setPosition(0.5);
         sleep(500);
-        encoderDrive(DRIVE_SPEED, -35, 35, -35, 35, 3);
-        encoderDrive(DRIVE_SPEED, 42, 42, 42, 42, 3);
-        encoderDrive(0.4, 6, -6, -6, 6, 3);
-        sleep(500);
-        servo5.setPosition(0.85);
-        servo6.setPosition(0.85);
-        servo3.setPosition(-0.35);
-        servo4.setPosition(-0.7);
-        sleep(500);
-        encoderDrive(0.4, 6, -6, -6, 6, 3);
-        sleep(500);
-        servo1.setPosition(-0.3);
-        servo2.setPosition(0.3);
-        encoderDriveSlide(DRIVE_SPEED_2, 10, 0, 3);
-        sleep(500);
-        servo1.setPosition(0.3);
-        servo2.setPosition(-0.3);
-        sleep(500);
-        encoderDriveSlide(DRIVE_SPEED_2, -5, 0, 3);
+        encoderDrive(DRIVE_SPEED, 30, -30, 30, -30, 3);
+        encoderDrive(DRIVE_SPEED, -20, 20, 20, -20, 3);
+
 
     }
 
