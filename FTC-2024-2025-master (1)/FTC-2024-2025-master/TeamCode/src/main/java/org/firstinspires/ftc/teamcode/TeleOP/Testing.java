@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.TeleOP;
 
+import androidx.appcompat.app.ActionBar;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -55,7 +58,7 @@ public class Testing extends LinearOpMode {
     boolean rampUp = true;
 
     static final double MAX_POS2     =  0.35;     // Maximum rotational position
-    static final double MIN_POS2     =  0.0;
+    static final double MIN_POS2     =  0.0;      // Minimum rotational position
 
     static final double MAX_POS3     =  0.7;     // Maximum rotational position
     static final double MIN_POS3    =  0.0;

@@ -55,6 +55,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 // testing out true and false sensing different colors
 @TeleOp(name = "Sensor: MR Color", group = "Sensor")
+@Disabled
 public class ColorSensorTesting extends LinearOpMode {
 
   ColorSensor colorSensor;    // Hardware Device Object

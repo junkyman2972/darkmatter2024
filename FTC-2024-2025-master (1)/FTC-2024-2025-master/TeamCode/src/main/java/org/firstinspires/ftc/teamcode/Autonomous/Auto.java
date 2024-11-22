@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "Auto", group = "Autonomous")
+
 public class Auto extends LinearOpMode {
 
     static final double COUNTS_PER_MOTOR_REV = 537.7;    // eg: TETRIX Motor Encoder
@@ -25,6 +26,8 @@ public class Auto extends LinearOpMode {
 
     static final double DRIVE_SPEED_2 = 1.0;
     static final double TURN_SPEED = 0.5;
+
+    long SLEEP_TIME = 500;
 
     DcMotorEx LeftT;
 
@@ -98,46 +101,69 @@ public class Auto extends LinearOpMode {
         servo5.setPosition(-0.2);
         servo6.setPosition(-0.2);
         servo3.setPosition(0.35);
+        servo1.setPosition(0.3);
+        servo2.setPosition(-0.3);
         waitForStart();
 
 
         encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
         encoderDrive(DRIVE_SPEED, 10, -10, 10, -10, 3);
-        encoderDriveSlide(DRIVE_SPEED_2, -10, 0, 3);
+        encoderDriveSlide(DRIVE_SPEED_2, -10, 0, 1);
         VerticalIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        sleep(500);
+        sleep(SLEEP_TIME);
         servo5.setPosition(0.9);
         servo6.setPosition(0.9);
         servo3.setPosition(0.35);
         servo4.setPosition(-0.7);
         servo1.setPosition(0.3);
         servo2.setPosition(-0.3);
-        sleep(2000);
+        sleep(1000);
         servo1.setPosition(-0.3);
         servo2.setPosition(0.3);
-        sleep(500);
+        sleep(SLEEP_TIME);
         servo5.setPosition(-0.2);
         servo6.setPosition(-0.2);
-        sleep(500);
+        sleep(SLEEP_TIME);
         encoderDrive(DRIVE_SPEED, -35, 35, -35, 35, 3);
-        encoderDrive(DRIVE_SPEED, 42, 42, 42, 42, 3);
-        encoderDrive(0.4, 6, -6, -6, 6, 3);
-        sleep(500);
+        encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
+        encoderDrive(DRIVE_SPEED, -15, 15, -15, 15, 3);
+        encoderDrive(DRIVE_SPEED, -45, 45, 45, -45, 3);
+        encoderDrive(DRIVE_SPEED, 10, -10, -10, 10, 3);
+        encoderDrive(DRIVE_SPEED, 41, 41, 41, 41, 3);
+        sleep(SLEEP_TIME);
+        servo5.setPosition(0.8);
+        servo6.setPosition(0.8);
+        servo3.setPosition(-0.35);
+        servo4.setPosition(0.7);
+        sleep(1000);
+        encoderDrive(DRIVE_SPEED, 5, -5, -5, 5, 3);
+        sleep(SLEEP_TIME);
+        servo1.setPosition(0.3);
+        servo2.setPosition(-0.3);
+        sleep(SLEEP_TIME);
+        encoderDriveSlide(DRIVE_SPEED_2, -10, 0 ,3);
+        sleep(SLEEP_TIME);
+        encoderDrive(0, 0, 0, 0, 0, 3);
+
+
+        //commented out code for turning and picking up object
+        /*encoderDrive(0.4, 6, -6, -6, 6, 3);
+        sleep(SLEEP_TIME);
         servo5.setPosition(0.85);
         servo6.setPosition(0.85);
         servo3.setPosition(-0.35);
         servo4.setPosition(-0.7);
-        sleep(500);
+        sleep(SLEEP_TIME);
         encoderDrive(0.4, 6, -6, -6, 6, 3);
-        sleep(500);
+        sleep(SLEEP_TIME);
         servo1.setPosition(-0.3);
         servo2.setPosition(0.3);
         encoderDriveSlide(DRIVE_SPEED_2, 10, 0, 3);
-        sleep(500);
+        sleep(SLEEP_TIME);
         servo1.setPosition(0.3);
         servo2.setPosition(-0.3);
-        sleep(500);
-        encoderDriveSlide(DRIVE_SPEED_2, -5, 0, 3);
+        sleep(SLEEP_TIME);
+        encoderDriveSlide(DRIVE_SPEED_2, -5, 0, 3);*/
 
     }
 
