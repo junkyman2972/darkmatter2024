@@ -19,26 +19,26 @@ public class Testing extends LinearOpMode {
     DcMotorEx RightT;
     DcMotorEx LeftB;
     DcMotorEx RightB;
+    Servo ServoClaw;
 
     DcMotorEx HorizontalIntake;
 
     DcMotorEx VerticalIntake;
 
-    Servo Intake1;
-    Servo Intake2;
+    Servo IntakeRotate1;
+    Servo IntakeRotate2;
 
-    CRServo Intake;
+    CRServo Star1;
 
-    Servo servo1;
-    Servo servo2;
+    CRServo Star2;
 
-    Servo servo3;
+    Servo MidArmServo;
 
-    Servo servo4;
+    Servo ClawRotate;
 
-    Servo servo5;
+    Servo ArmRotate1;
 
-    Servo servo6;
+    Servo ArmRotate2;
 
     boolean horizontalIntakeStop = false;
 
@@ -48,16 +48,18 @@ public class Testing extends LinearOpMode {
 
     static final double INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
     static final int    CYCLE_MS    =   50;     // period of each cycle
-    static final double MAX_POS     =  0.45;     // Maximum rotational position
+    static final double MAX_POS     =  0.33;     // Maximum rotational position
     static final double MIN_POS     =  0.0;
-    static final double MAX_POSpoint    =  0.3;
+    static final double MAX_POSpoint    =  0.22;
     static final double MIN_POSpoint     =  0.0;
 
     double positionpoint = (MAX_POSpoint - MIN_POSpoint) / 2;
     double  position = (MAX_POS - MIN_POS) / 2; // Start at halfway position
     boolean rampUp = true;
 
-    static final double MAX_POS2     =  0.35;     // Maximum rotational position
+    boolean aDepressed = true;
+
+    static final double MAX_POS2     =  0.3;     // Maximum rotational position
     static final double MIN_POS2     =  0.0;      // Minimum rotational position
 
     static final double MAX_POS3     =  0.7;     // Maximum rotational position
@@ -67,16 +69,16 @@ public class Testing extends LinearOpMode {
 
     static final double MAX_POS4     =  0.2;     // Maximum rotational
 
-    static final double MAX_POS4part2     =  0.0;     // Maximum rotational
+    static final double MAX_POS4part2     =  0.6;     // Maximum rotational
 
-    static final double MAX_POS4part3     =  0.8;     // Maximum rotational
+    static final double MAX_POS4part3     =  0.6;     // Maximum rotational
 
     static final double MIN_POS4part3    =  0.0;
 
 
     static final double MIN_POS4    =  0.0;
 
-    static final double MIN_POS4part2    =  0.65;
+    static final double MIN_POS4part2    =  0.0;
     double  position2 = (MAX_POS2 - MIN_POS2) / 2; // Start at halfway position
 
     double  position3 = (MAX_POS3 - MIN_POS3) / 2; // Start at halfway position
@@ -92,23 +94,23 @@ public class Testing extends LinearOpMode {
         RightT = hardwareMap.get(DcMotorEx.class, "RightT");
         LeftB = hardwareMap.get(DcMotorEx.class, "LeftB");
         RightB = hardwareMap.get(DcMotorEx.class, "RightB");
-        Intake1 = hardwareMap.get(Servo.class, "Intake1");
-        Intake2 = hardwareMap.get(Servo.class, "Intake2");
-        Intake = hardwareMap.get(CRServo.class, "Intake");
+        IntakeRotate1 = hardwareMap.get(Servo.class, "IntakeRotate1");
+        IntakeRotate2 = hardwareMap.get(Servo.class, "IntakeRotate2");
+        Star1 = hardwareMap.get(CRServo.class, "Star1");
+        Star2 = hardwareMap.get(CRServo.class, "Star2");
         HorizontalIntake = hardwareMap.get(DcMotorEx.class, "HorizontalIntake");
         VerticalIntake = hardwareMap.get(DcMotorEx.class, "VerticalIntake");
-        servo1 = hardwareMap.get(Servo.class, "servo1");
-        servo2 = hardwareMap.get(Servo.class, "servo2");
-        servo3 = hardwareMap.get(Servo.class, "servo3");
-        servo4 = hardwareMap.get(Servo.class, "servo4");
-        servo5 = hardwareMap.get(Servo.class, "servo5");
-        servo6 = hardwareMap.get(Servo.class, "servo6");
+        ServoClaw = hardwareMap.get(Servo.class, "ServoClaw");
+        MidArmServo = hardwareMap.get(Servo.class, "MidArmServo");
+        ClawRotate = hardwareMap.get(Servo.class, "ClawRotate");
+        ArmRotate1 = hardwareMap.get(Servo.class, "ArmRotate1");
+        ArmRotate2 = hardwareMap.get(Servo.class, "ArmRotate2");
 
         HorizontalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        Intake1.setDirection(Servo.Direction.REVERSE);
+        IntakeRotate1.setDirection(Servo.Direction.REVERSE);
         HorizontalIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-        servo6.setDirection(Servo.Direction.REVERSE);
+        ArmRotate1.setDirection(Servo.Direction.REVERSE);
 
 
 
@@ -150,6 +152,10 @@ public class Testing extends LinearOpMode {
 
     //set to Servo Port 0 and 1
     public void Servo () {
+
+
+
+
         if (rampUp) {
             // Keep stepping up until we hit the max value.
             position += INCREMENT ;
@@ -165,23 +171,38 @@ public class Testing extends LinearOpMode {
             }
         }
 
-        Intake1.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y));
-        Intake2.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y));
-
-
-        /*if (gamepad2.left_bumper) {
-            Intake1.setPosition(position);
-            Intake2.setPosition(position);
+        /*if (gamepad2.a = false) {
+            aDepressed = true;
         }
-        else if (gamepad2.right_bumper) {
-            Intake2.setPosition(-position);
-            Intake1.setPosition(-position);
+        if (gamepad2.a && aDepressed) {
+            if (IntakeRotate1.getPosition() == position && IntakeRotate2.getPosition() == position) {
+                IntakeRotate1.setPosition(position);
+                IntakeRotate2.setPosition(position);
+            }
+            else {
+                IntakeRotate1.setPosition(-position);
+                IntakeRotate2.setPosition(-position);
+            }
+            aDepressed = false;
         }*/
+        //IntakeRotate1.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y) + (gamepad2.right_stick_x));
+        //IntakeRotate2.setPosition(position * (gamepad2.right_stick_y) - (gamepad2.right_stick_y) + (gamepad2.right_stick_x));
+
+
+        if (gamepad2.a) {
+            IntakeRotate1.setPosition(0.67);
+            IntakeRotate2.setPosition(0.67);
+        }
+        else {
+            IntakeRotate2.setPosition(-position);
+            IntakeRotate1.setPosition(-position);
+        }
     }
 
     //set to Servo Port 2
     public void ContinueServo () {
-        Intake.setPower(0.5 * -(gamepad2.right_trigger) + (gamepad2.left_trigger));
+        Star1.setPower(0.5 * (gamepad2.right_trigger) - (gamepad2.left_trigger));
+        Star2.setPower(0.5 * -(gamepad2.right_trigger) + (gamepad2.left_trigger));
         /*if (gamepad2.dpad_up) {
             Intake.setPower(0.5);
         }
@@ -229,17 +250,14 @@ public class Testing extends LinearOpMode {
             }
         }
         if (gamepad2.dpad_down) {
-            servo1.setPosition(-positionpoint);
-            servo2.setPosition(positionpoint);
+            ServoClaw.setPosition(-positionpoint);
             horizontalIntakeStop = false;
         }
         if (gamepad2.x) {
-            servo1.setPosition(positionpoint);
-            servo2.setPosition(-positionpoint);
+            ServoClaw.setPosition(positionpoint);
         }
-        if (gamepad2.y) {
-            servo1.setPosition(-positionpoint);
-            servo2.setPosition(positionpoint);
+        else if (gamepad2.y) {
+            ServoClaw.setPosition(-positionpoint);
         }
     }
     public void FourServoRotate () {
@@ -258,11 +276,11 @@ public class Testing extends LinearOpMode {
             }
         }
         if (gamepad2.dpad_up) {
-            servo3.setPosition(position2);
+            MidArmServo.setPosition(position2);
         }
         if (gamepad2.dpad_down) {
             sleep(500);
-            servo3.setPosition(-position2);
+            MidArmServo.setPosition(-position2);
         }
     }
     public void FourServoIntake () {
@@ -282,10 +300,10 @@ public class Testing extends LinearOpMode {
         }
         if (gamepad2.b) {
             sleep(200);
-            servo4.setPosition(-position3);
+            ClawRotate.setPosition(-position3);
         }
         if (gamepad2.dpad_up) {
-            servo4.setPosition(-position3);
+            ClawRotate.setPosition(-position3);
         }
     }
     public void FourServoBottom () {
@@ -332,26 +350,35 @@ public class Testing extends LinearOpMode {
             }
         }
         if (gamepad2.dpad_up) {
-            servo5.setPosition(0.35);
-            servo6.setPosition(0.35);
+            ArmRotate1.setPosition(0.35);
+            ArmRotate2.setPosition(0.35);
+            horizontalIntakeStop = true;
         }
         else if (gamepad2.dpad_left) {
-            servo5.setPosition(1.0);
-            servo6.setPosition(1.0);
-            servo3.setPosition(position2);
-            servo4.setPosition(position3);
+            ArmRotate1.setPosition(position4part3);
+            ArmRotate2.setPosition(position4part3);
+            MidArmServo.setPosition(position2);
+            ClawRotate.setPosition(-position3);
+            horizontalIntakeStop = true;
         }
         else if (gamepad2.dpad_right) {
-            servo5.setPosition(position4part3);
-            servo6.setPosition(position4part3);
-            servo3.setPosition(-position2);
-            servo4.setPosition(position3);
+            VerticalIntake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            VerticalIntake.setTargetPosition(-1000);
+            ArmRotate1.setPosition(position4part2);
+            ArmRotate2.setPosition(position4part2);
+            MidArmServo.setPosition(-position2);
+            ClawRotate.setPosition(-position3);
             horizontalIntakeStop = true;
         }
         if (gamepad2.dpad_down) {
-            servo5.setPosition(-position4);
-            servo6.setPosition(-position4);
-            servo4.setPosition(0.35);
+            VerticalIntake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            VerticalIntake.setTargetPosition(0);
+            ClawRotate.setPosition(0.65);
+        }
+        if (gamepad2.dpad_down) {
+            sleep(500);
+            ArmRotate1.setPosition(-position4);
+            ArmRotate2.setPosition(-position4);
         }
         while (VerticalIntake.isMotorEnabled() && VerticalIntake.isBusy()) {
             HorizontalIntake.setMotorDisable();
@@ -360,8 +387,8 @@ public class Testing extends LinearOpMode {
         /*if (gamepad2.dpad_right) {
 
         }*/
-        telemetry.addData("Servo5 Position:", servo5.getPosition());
-        telemetry.addData("Servo6 Position:", servo6.getPosition());
+        telemetry.addData("Rotate1 Position:", ArmRotate1.getPosition());
+        telemetry.addData("Rotate2 Position:", ArmRotate2.getPosition());
         telemetry.update();
     }
  }
