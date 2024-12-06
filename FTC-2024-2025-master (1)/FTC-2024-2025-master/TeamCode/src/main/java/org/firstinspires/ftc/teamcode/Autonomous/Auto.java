@@ -81,15 +81,16 @@ public class Auto extends LinearOpMode {
         ClawRotate = hardwareMap.get(Servo.class, "ClawRotate");
         ArmRotate1 = hardwareMap.get(Servo.class, "ArmRotate1");
         ArmRotate2 = hardwareMap.get(Servo.class, "ArmRotate2");
+
+
         LeftT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LeftB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         HorizontalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         VerticalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ServoClaw.setDirection(Servo.Direction.REVERSE);
-        HorizontalIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-        ArmRotate2.setDirection(Servo.Direction.REVERSE);
+        HorizontalIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+        ArmRotate1.setDirection(Servo.Direction.REVERSE);
 
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 LeftB.getCurrentPosition(),
@@ -98,11 +99,13 @@ public class Auto extends LinearOpMode {
         RightT.getCurrentPosition();
         telemetry.update();
 
+
+        //negative opens claw positive closes it
         init();
         ArmRotate1.setPosition(-0.2);
         ArmRotate2.setPosition(-0.2);
         MidArmServo.setPosition(0.35);
-        ServoClaw.setPosition(0.3);
+        ServoClaw.setPosition(0.22);
         waitForStart();
 
 
@@ -115,9 +118,9 @@ public class Auto extends LinearOpMode {
         ArmRotate2.setPosition(0.9);
         MidArmServo.setPosition(0.35);
         ClawRotate.setPosition(-0.7);
-        ServoClaw.setPosition(0.3);
+        ServoClaw.setPosition(0.22);
         sleep(1000);
-        ServoClaw.setPosition(-0.3);
+        ServoClaw.setPosition(-0.22);
         sleep(SLEEP_TIME);
         ArmRotate1.setPosition(-0.2);
         ArmRotate2.setPosition(-0.2);
@@ -129,14 +132,16 @@ public class Auto extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 10, -10, -10, 10, 3);
         encoderDrive(DRIVE_SPEED, 41, 41, 41, 41, 3);
         sleep(SLEEP_TIME);
-        ArmRotate1.setPosition(0.8);
-        ArmRotate2.setPosition(0.8);
-        MidArmServo.setPosition(-0.35);
+        encoderDriveSlide(DRIVE_SPEED_2, 10, 0 ,3);
+        sleep(SLEEP_TIME);
+        ArmRotate1.setPosition(0.7);
+        ArmRotate2.setPosition(0.7);
+        MidArmServo.setPosition(0.3);
         ClawRotate.setPosition(0.7);
         sleep(1000);
         encoderDrive(DRIVE_SPEED, 5, -5, -5, 5, 3);
         sleep(SLEEP_TIME);
-        ServoClaw.setPosition(0.3);
+        ServoClaw.setPosition(0.22);
         sleep(SLEEP_TIME);
         encoderDriveSlide(DRIVE_SPEED_2, -10, 0 ,3);
         sleep(SLEEP_TIME);

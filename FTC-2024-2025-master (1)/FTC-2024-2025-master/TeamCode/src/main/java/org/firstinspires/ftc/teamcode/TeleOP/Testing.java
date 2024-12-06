@@ -250,7 +250,7 @@ public class Testing extends LinearOpMode {
             }
         }
         if (gamepad2.dpad_down) {
-            ServoClaw.setPosition(-positionpoint);
+            //ServoClaw.setPosition(-positionpoint);
             horizontalIntakeStop = false;
         }
         if (gamepad2.x) {
@@ -278,10 +278,10 @@ public class Testing extends LinearOpMode {
         if (gamepad2.dpad_up) {
             MidArmServo.setPosition(position2);
         }
-        if (gamepad2.dpad_down) {
-            sleep(500);
-            MidArmServo.setPosition(-position2);
-        }
+        //if (gamepad2.dpad_down) {
+            //sleep(250);
+            //MidArmServo.setPosition(-position2);
+        //}
     }
     public void FourServoIntake () {
         if (rampUp) {
@@ -373,10 +373,10 @@ public class Testing extends LinearOpMode {
         if (gamepad2.dpad_down) {
             //VerticalIntake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             //VerticalIntake.setTargetPosition(0);
+            ServoClaw.setPosition(-positionpoint);
             ClawRotate.setPosition(0.65);
-        }
-        if (gamepad2.dpad_down) {
-            sleep(500);
+            MidArmServo.setPosition(-position2);
+            //sleep(250);
             ArmRotate1.setPosition(-position4);
             ArmRotate2.setPosition(-position4);
         }
