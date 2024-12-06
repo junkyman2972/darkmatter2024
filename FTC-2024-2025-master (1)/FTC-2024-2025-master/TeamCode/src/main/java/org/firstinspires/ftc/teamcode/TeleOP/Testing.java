@@ -109,7 +109,7 @@ public class Testing extends LinearOpMode {
         HorizontalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         IntakeRotate1.setDirection(Servo.Direction.REVERSE);
-        HorizontalIntake.setDirection(DcMotorSimple.Direction.REVERSE);
+        HorizontalIntake.setDirection(DcMotorSimple.Direction.FORWARD);
         ArmRotate1.setDirection(Servo.Direction.REVERSE);
 
 
@@ -303,7 +303,7 @@ public class Testing extends LinearOpMode {
             ClawRotate.setPosition(-position3);
         }
         if (gamepad2.dpad_up) {
-            ClawRotate.setPosition(-position3);
+            ClawRotate.setPosition(position3);
         }
     }
     public void FourServoBottom () {
@@ -362,8 +362,8 @@ public class Testing extends LinearOpMode {
             horizontalIntakeStop = true;
         }
         else if (gamepad2.dpad_right) {
-            VerticalIntake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            VerticalIntake.setTargetPosition(-1000);
+            //VerticalIntake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //VerticalIntake.setTargetPosition(-1000);
             ArmRotate1.setPosition(position4part2);
             ArmRotate2.setPosition(position4part2);
             MidArmServo.setPosition(-position2);
@@ -371,8 +371,8 @@ public class Testing extends LinearOpMode {
             horizontalIntakeStop = true;
         }
         if (gamepad2.dpad_down) {
-            VerticalIntake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            VerticalIntake.setTargetPosition(0);
+            //VerticalIntake.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //VerticalIntake.setTargetPosition(0);
             ClawRotate.setPosition(0.65);
         }
         if (gamepad2.dpad_down) {

@@ -41,21 +41,22 @@ public class Auto extends LinearOpMode {
 
     DcMotorEx VerticalIntake;
 
-    Servo Intake1;
-    Servo Intake2;
+    Servo IntakeRotate1;
+    Servo IntakeRotate2;
 
-    CRServo Intake;
+    Servo ServoClaw;
 
-    Servo servo1;
-    Servo servo2;
+    CRServo Star1;
 
-    Servo servo3;
+    CRServo Star2;
 
-    Servo servo4;
+    Servo MidArmServo;
 
-    Servo servo5;
+    Servo ClawRotate;
 
-    Servo servo6;
+    Servo ArmRotate1;
+
+    Servo ArmRotate2;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -69,26 +70,26 @@ public class Auto extends LinearOpMode {
         LeftB = hardwareMap.get(DcMotorEx.class, "LeftB");
         RightT = hardwareMap.get(DcMotorEx.class, "RightT");
         RightB = hardwareMap.get(DcMotorEx.class, "RightB");
-        Intake = hardwareMap.get(CRServo.class, "Intake");
-        Intake1 = hardwareMap.get(Servo.class, "Intake1");
-        Intake2 = hardwareMap.get(Servo.class, "Intake2");
+        Star1 = hardwareMap.get(CRServo.class, "Star1");
+        Star2 = hardwareMap.get(CRServo.class, "Star2");
+        IntakeRotate1 = hardwareMap.get(Servo.class, "IntakeRotate1");
+        IntakeRotate2 = hardwareMap.get(Servo.class, "IntakeRotate2");
+        ServoClaw = hardwareMap.get(Servo.class, "ServoClaw");
         HorizontalIntake = hardwareMap.get(DcMotorEx.class, "HorizontalIntake");
         VerticalIntake = hardwareMap.get(DcMotorEx.class, "VerticalIntake");
-        servo1 = hardwareMap.get(Servo.class, "servo1");
-        servo2 = hardwareMap.get(Servo.class, "servo2");
-        servo3 = hardwareMap.get(Servo.class, "servo3");
-        servo4 = hardwareMap.get(Servo.class, "servo4");
-        servo5 = hardwareMap.get(Servo.class, "servo5");
-        servo6 = hardwareMap.get(Servo.class, "servo6");
+        MidArmServo = hardwareMap.get(Servo.class, "MidArmServo");
+        ClawRotate = hardwareMap.get(Servo.class, "ClawRotate");
+        ArmRotate1 = hardwareMap.get(Servo.class, "ArmRotate1");
+        ArmRotate2 = hardwareMap.get(Servo.class, "ArmRotate2");
         LeftT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LeftB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         HorizontalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         VerticalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Intake1.setDirection(Servo.Direction.REVERSE);
+        ServoClaw.setDirection(Servo.Direction.REVERSE);
         HorizontalIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-        servo6.setDirection(Servo.Direction.REVERSE);
+        ArmRotate2.setDirection(Servo.Direction.REVERSE);
 
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 LeftB.getCurrentPosition(),
@@ -98,11 +99,10 @@ public class Auto extends LinearOpMode {
         telemetry.update();
 
         init();
-        servo5.setPosition(-0.2);
-        servo6.setPosition(-0.2);
-        servo3.setPosition(0.35);
-        servo1.setPosition(0.3);
-        servo2.setPosition(-0.3);
+        ArmRotate1.setPosition(-0.2);
+        ArmRotate2.setPosition(-0.2);
+        MidArmServo.setPosition(0.35);
+        ServoClaw.setPosition(0.3);
         waitForStart();
 
 
@@ -111,18 +111,16 @@ public class Auto extends LinearOpMode {
         encoderDriveSlide(DRIVE_SPEED_2, -10, 0, 1);
         VerticalIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         sleep(SLEEP_TIME);
-        servo5.setPosition(0.9);
-        servo6.setPosition(0.9);
-        servo3.setPosition(0.35);
-        servo4.setPosition(-0.7);
-        servo1.setPosition(0.3);
-        servo2.setPosition(-0.3);
+        ArmRotate1.setPosition(0.9);
+        ArmRotate2.setPosition(0.9);
+        MidArmServo.setPosition(0.35);
+        ClawRotate.setPosition(-0.7);
+        ServoClaw.setPosition(0.3);
         sleep(1000);
-        servo1.setPosition(-0.3);
-        servo2.setPosition(0.3);
+        ServoClaw.setPosition(-0.3);
         sleep(SLEEP_TIME);
-        servo5.setPosition(-0.2);
-        servo6.setPosition(-0.2);
+        ArmRotate1.setPosition(-0.2);
+        ArmRotate2.setPosition(-0.2);
         sleep(SLEEP_TIME);
         encoderDrive(DRIVE_SPEED, -35, 35, -35, 35, 3);
         encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
@@ -131,15 +129,14 @@ public class Auto extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 10, -10, -10, 10, 3);
         encoderDrive(DRIVE_SPEED, 41, 41, 41, 41, 3);
         sleep(SLEEP_TIME);
-        servo5.setPosition(0.8);
-        servo6.setPosition(0.8);
-        servo3.setPosition(-0.35);
-        servo4.setPosition(0.7);
+        ArmRotate1.setPosition(0.8);
+        ArmRotate2.setPosition(0.8);
+        MidArmServo.setPosition(-0.35);
+        ClawRotate.setPosition(0.7);
         sleep(1000);
         encoderDrive(DRIVE_SPEED, 5, -5, -5, 5, 3);
         sleep(SLEEP_TIME);
-        servo1.setPosition(0.3);
-        servo2.setPosition(-0.3);
+        ServoClaw.setPosition(0.3);
         sleep(SLEEP_TIME);
         encoderDriveSlide(DRIVE_SPEED_2, -10, 0 ,3);
         sleep(SLEEP_TIME);
