@@ -108,9 +108,11 @@ public class Auto extends LinearOpMode {
         ServoClaw.setPosition(0.22);
         waitForStart();
 
-
-        encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
-        encoderDrive(DRIVE_SPEED, 10, -10, 10, -10, 3);
+        //Move Forward
+        encoderDrive(DRIVE_SPEED, 20, -20, -20, 20, 3);
+        //Move Left to High Bar
+        encoderDrive(DRIVE_SPEED, 15, -15, -15, -15, 3);
+        //Raise
         encoderDriveSlide(DRIVE_SPEED_2, -10, 0, 1);
         VerticalIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         sleep(SLEEP_TIME);
@@ -125,11 +127,17 @@ public class Auto extends LinearOpMode {
         ArmRotate1.setPosition(-0.2);
         ArmRotate2.setPosition(-0.2);
         sleep(SLEEP_TIME);
+        //Move Right
         encoderDrive(DRIVE_SPEED, -35, 35, -35, 35, 3);
+        //Move Forward
         encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
+        //Move Right
         encoderDrive(DRIVE_SPEED, -15, 15, -15, 15, 3);
+        //Move Back
         encoderDrive(DRIVE_SPEED, -45, 45, 45, -45, 3);
+        //Move Forward
         encoderDrive(DRIVE_SPEED, 10, -10, -10, 10, 3);
+        // Turn 180
         encoderDrive(DRIVE_SPEED, 41, 41, 41, 41, 3);
         sleep(SLEEP_TIME);
         encoderDriveSlide(DRIVE_SPEED_2, 10, 0 ,3);

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "AutoLeft", group = "Autonomous")
 
-public class Auto2 extends LinearOpMode {
+public class AutoLeft extends LinearOpMode {
 
     static final double COUNTS_PER_MOTOR_REV = 537.7;    // eg: TETRIX Motor Encoder
 
@@ -27,6 +26,8 @@ public class Auto2 extends LinearOpMode {
     static final double DRIVE_SPEED_2 = 1.0;
     static final double TURN_SPEED = 0.5;
 
+    long SLEEP_TIME = 500;
+
     DcMotorEx LeftT;
 
     DcMotorEx RightT;
@@ -39,21 +40,22 @@ public class Auto2 extends LinearOpMode {
 
     DcMotorEx VerticalIntake;
 
-    Servo Intake1;
-    Servo Intake2;
+    Servo IntakeRotate1;
+    Servo IntakeRotate2;
 
-    CRServo Intake;
+    Servo ServoClaw;
 
-    Servo servo1;
-    Servo servo2;
+    CRServo Star1;
 
-    Servo servo3;
+    CRServo Star2;
 
-    Servo servo4;
+    Servo MidArmServo;
 
-    Servo servo5;
+    Servo ClawRotate;
 
-    Servo servo6;
+    Servo ArmRotate1;
+
+    Servo ArmRotate2;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -67,26 +69,27 @@ public class Auto2 extends LinearOpMode {
         LeftB = hardwareMap.get(DcMotorEx.class, "LeftB");
         RightT = hardwareMap.get(DcMotorEx.class, "RightT");
         RightB = hardwareMap.get(DcMotorEx.class, "RightB");
-        Intake = hardwareMap.get(CRServo.class, "Intake");
-        Intake1 = hardwareMap.get(Servo.class, "Intake1");
-        Intake2 = hardwareMap.get(Servo.class, "Intake2");
+        Star1 = hardwareMap.get(CRServo.class, "Star1");
+        Star2 = hardwareMap.get(CRServo.class, "Star2");
+        IntakeRotate1 = hardwareMap.get(Servo.class, "IntakeRotate1");
+        IntakeRotate2 = hardwareMap.get(Servo.class, "IntakeRotate2");
+        ServoClaw = hardwareMap.get(Servo.class, "ServoClaw");
         HorizontalIntake = hardwareMap.get(DcMotorEx.class, "HorizontalIntake");
         VerticalIntake = hardwareMap.get(DcMotorEx.class, "VerticalIntake");
-        servo1 = hardwareMap.get(Servo.class, "servo1");
-        servo2 = hardwareMap.get(Servo.class, "servo2");
-        servo3 = hardwareMap.get(Servo.class, "servo3");
-        servo4 = hardwareMap.get(Servo.class, "servo4");
-        servo5 = hardwareMap.get(Servo.class, "servo5");
-        servo6 = hardwareMap.get(Servo.class, "servo6");
+        MidArmServo = hardwareMap.get(Servo.class, "MidArmServo");
+        ClawRotate = hardwareMap.get(Servo.class, "ClawRotate");
+        ArmRotate1 = hardwareMap.get(Servo.class, "ArmRotate1");
+        ArmRotate2 = hardwareMap.get(Servo.class, "ArmRotate2");
+
+
         LeftT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LeftB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightT.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RightB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         HorizontalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         VerticalIntake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Intake1.setDirection(Servo.Direction.REVERSE);
-        HorizontalIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-        servo6.setDirection(Servo.Direction.REVERSE);
+        HorizontalIntake.setDirection(DcMotorSimple.Direction.FORWARD);
+        ArmRotate1.setDirection(Servo.Direction.REVERSE);
 
         telemetry.addData("Path0", "Starting at %7d :%7d",
                 LeftB.getCurrentPosition(),
@@ -95,34 +98,94 @@ public class Auto2 extends LinearOpMode {
         RightT.getCurrentPosition();
         telemetry.update();
 
+
+        //negative opens claw positive closes it
         init();
-        servo5.setPosition(-0.2);
-        servo6.setPosition(-0.2);
-        servo3.setPosition(0.35);
+        ArmRotate1.setPosition(-0.2);
+        ArmRotate2.setPosition(-0.2);
+        MidArmServo.setPosition(0.35);
+        ServoClaw.setPosition(0.22);
         waitForStart();
 
 
-        encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
+        encoderDrive(DRIVE_SPEED, 20, -20, -20, 20, 3);
         encoderDrive(DRIVE_SPEED, -10, 10, -10, 10, 3);
-        encoderDriveSlide(DRIVE_SPEED_2, -10, 0, 3);
+        encoderDriveSlide(DRIVE_SPEED_2, -10, 0, 1);
         VerticalIntake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        sleep(500);
-        servo5.setPosition(0.9);
-        servo6.setPosition(0.9);
-        servo3.setPosition(0.35);
+        sleep(SLEEP_TIME);
+        ArmRotate1.setPosition(0.9);
+        ArmRotate2.setPosition(0.9);
+        MidArmServo.setPosition(0.35);
+        ClawRotate.setPosition(-0.7);
+        ServoClaw.setPosition(0.22);
+        sleep(1000);
+        ServoClaw.setPosition(-0.22);
+        sleep(SLEEP_TIME);
+        ArmRotate1.setPosition(-0.2);
+        ArmRotate2.setPosition(-0.2);
+        sleep(SLEEP_TIME);
+        //Move Left
+        encoderDrive(DRIVE_SPEED, 35, -35, 35, -35, 3);
+        //Move Forward
+        encoderDrive(DRIVE_SPEED, 25, -25, -25, 25, 3);
+        //Move Left
+        encoderDrive(DRIVE_SPEED, 15, -15, 15, -15, 3);
+        //Move Back
+        encoderDrive(DRIVE_SPEED, -45, 45, 45, -45, 3);
+        //Move Forward
+        encoderDrive(DRIVE_SPEED, 45, -45, -45, 45, 3);
+        //Move Left
+        encoderDrive(DRIVE_SPEED, 15, -15, 15, -15, 3);
+        //Move Back Medium
+        encoderDrive(DRIVE_SPEED, -35, 35, 35, -35, 3);
+        //Move Forward
+        encoderDrive(DRIVE_SPEED, 45, -45, -45, 45, 3);
+        //Move Left
+        encoderDrive(DRIVE_SPEED, 15, -15, 15, -15, 3);
+        //Move Back Short
+        encoderDrive(DRIVE_SPEED, -25, 25, 25, -25, 3);
+
+        //End Code
+
+        //Turn Right
+        encoderDrive(DRIVE_SPEED, 41, 41, 41, 41, 3);
+        sleep(SLEEP_TIME);
+        encoderDriveSlide(DRIVE_SPEED_2, 10, 0 ,3);
+        sleep(SLEEP_TIME);
+
+        //Rotating Arm
+        ArmRotate1.setPosition(0.7);
+        ArmRotate2.setPosition(0.7);
+        MidArmServo.setPosition(0.3);
+        ClawRotate.setPosition(0.7);
+        sleep(1000);
+        encoderDrive(DRIVE_SPEED, 5, -5, -5, 5, 3);
+        sleep(SLEEP_TIME);
+        ServoClaw.setPosition(0.22);
+        sleep(SLEEP_TIME);
+        encoderDriveSlide(DRIVE_SPEED_2, -10, 0 ,3);
+        sleep(SLEEP_TIME);
+        encoderDrive(0, 0, 0, 0, 0, 3);
+
+
+        //commented out code for turning and picking up object
+        /*encoderDrive(0.4, 6, -6, -6, 6, 3);
+        sleep(SLEEP_TIME);
+        servo5.setPosition(0.85);
+        servo6.setPosition(0.85);
+        servo3.setPosition(-0.35);
         servo4.setPosition(-0.7);
-        servo1.setPosition(0.3);
-        servo2.setPosition(-0.3);
-        sleep(2000);
+        sleep(SLEEP_TIME);
+        encoderDrive(0.4, 6, -6, -6, 6, 3);
+        sleep(SLEEP_TIME);
         servo1.setPosition(-0.3);
         servo2.setPosition(0.3);
-        sleep(500);
-        servo5.setPosition(0.5);
-        servo6.setPosition(0.5);
-        sleep(500);
-        encoderDrive(DRIVE_SPEED, 30, -30, 30, -30, 3);
-        encoderDrive(DRIVE_SPEED, -20, 20, 20, -20, 3);
-
+        encoderDriveSlide(DRIVE_SPEED_2, 10, 0, 3);
+        sleep(SLEEP_TIME);
+        servo1.setPosition(0.3);
+        servo2.setPosition(-0.3);
+        sleep(SLEEP_TIME);
+        encoderDriveSlide(DRIVE_SPEED_2, -5, 0, 3);*/
 
     }
 
